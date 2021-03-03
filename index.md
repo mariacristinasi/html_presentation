@@ -1,25 +1,34 @@
-Describing CO2Hawaii dataset
+CO2Hawaii dataset from Stat2Data R package
 ========================================================
-author: María Cristina Sánchez Iglesias
+author: MarÃ­a Cristina SÃ¡nchez Iglesias
+date: March, 2021
 autosize: true
+font-import: "https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+font-family: 'Raleway'
+css: custom.css
+
+
+
+Master in Statistics for Data Science - UC3M
+
+Course: Data Tidying and Reporting
 
 About CO2Hawaii dataset
 ========================================================
+incremental:true
 
-We are describing "CO2Hawaii" dataset from Stat2Data R package. 
-
-This dataset contains information about monthly carbon dioxide readings at Mauna Loa, Hawaii from January 1988 to December 2017. 
+CO2Hawaii dataset contains information about monthly carbon dioxide readings at Mauna Loa, Hawaii from January, 1988 to December, 2017
 
 The variables that compound "CO2Hawaii" dataset are:
 
 - Year
-- Month, with values from 1 to 12.
+- Month
 - CO2: Atmospheric carbon dioxide level in ppm
-- t: Time interval, with values from 1 to 360 (the number of available values).
+- t: Time interval, with values from 1 to 360 (the number of available values)
 
-It has been collected from the ESRL/GMD data page at <https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html>.
+It has been collected from the ESRL/GMD data page at <span style="font-weight: bold; text-decoration-line: underline"> <https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html></span>
 
-Slide With Code
+Data structure
 ========================================================
 
 
@@ -41,54 +50,42 @@ head(data)
 ```
 
 
-Slide With Plot
+Concentration over time
 ========================================================
+type: exclaim
 
 ![plot of chunk unnamed-chunk-2](index-figure/unnamed-chunk-2-1.png)
 
-Concentration per year
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
+</div>
+
+
+
+Average concentration per year
 ========================================================
 
-```r
-library(plotly)
-p <- plot_ly(data, x = ~t, y = ~CO2, name = 'CO2', type = 'scatter', mode = 'lines') 
-htmlwidgets::saveWidget(p,'plotly.html')
-```
 
+<style>
+  .p_iframe iframe {
+    width:75%;
+    height:576px;
+}
+</style>
+
+<div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+</div>
 
-Averages by month
+
+Average concentration per month
 ========================================================
 
 
 
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly_mean.html"></iframe>
+</div>
 
-```
-processing file: index.Rpres
-Loading required package: ggplot2
-No renderer backend detected. gganimate will default to writing frames to separate files
-Consider installing:
-- the `gifski` package for gif output
-- the `av` package for video output
-and restarting the R session
 
-Attaching package: 'plotly'
 
-The following object is masked from 'package:ggplot2':
-
-    last_plot
-
-The following object is masked from 'package:stats':
-
-    filter
-
-The following object is masked from 'package:graphics':
-
-    layout
-
-Quitting from lines 56-68 (index.Rpres) 
-Error: First argument, `data`, must be a data frame or shared data.
-Además: Warning message:
-package 'gganimate' was built under R version 4.0.4 
-Ejecución interrumpida
-```

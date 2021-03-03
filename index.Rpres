@@ -1,25 +1,34 @@
-Describing CO2Hawaii dataset
+CO2Hawaii dataset from Stat2Data R package
 ========================================================
 author: María Cristina Sánchez Iglesias
+date: March, 2021
 autosize: true
+font-import: "https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+font-family: 'Raleway'
+css: custom.css
+
+
+
+Master in Statistics for Data Science - UC3M
+
+Course: Data Tidying and Reporting
 
 About CO2Hawaii dataset
 ========================================================
+incremental:true
 
-We are describing "CO2Hawaii" dataset from Stat2Data R package. 
-
-This dataset contains information about monthly carbon dioxide readings at Mauna Loa, Hawaii from January 1988 to December 2017. 
+CO2Hawaii dataset contains information about monthly carbon dioxide readings at Mauna Loa, Hawaii from January, 1988 to December, 2017
 
 The variables that compound "CO2Hawaii" dataset are:
 
 - Year
-- Month, with values from 1 to 12.
+- Month
 - CO2: Atmospheric carbon dioxide level in ppm
-- t: Time interval, with values from 1 to 360 (the number of available values).
+- t: Time interval, with values from 1 to 360 (the number of available values)
 
-It has been collected from the ESRL/GMD data page at <https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html>.
+It has been collected from the ESRL/GMD data page at <span style="font-weight: bold; text-decoration-line: underline"> <https://www.esrl.noaa.gov/gmd/ccgg/trends/data.html></span>
 
-Slide With Code
+Data structure
 ========================================================
 
 ```{r}
@@ -30,44 +39,98 @@ head(data)
 ```
 
 
-Slide With Plot
+Concentration over time
 ========================================================
+type: exclaim
 
-```{r, echo=FALSE}
-library(gganimate)
-serie=ts(data$CO2, freq=12)
-plot(serie) #????????????? try to animate it with animate
+```{r, echo=FALSE, fig.width=15}
+library(ggplot2)
+library(ggthemes)
+
+ggplot(data, aes(t, CO2)) +
+              geom_line(size=1.5, color="deepskyblue4") +
+              ggtitle("CO2 concentration") +
+              ylab("Time") +
+              theme_stata()
 ```
 
-Concentration per year
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
+</div>
+
+```{r, include=FALSE}
+library(gganimate)
+serie=ts(data$CO2, freq=12)
+#plot(serie) ????????????? try to animate it with animate
+```
+
+Average concentration per year
 ========================================================
-```{r}
+```{r, echo=FALSE}
+average_anual=matrix(data=0, nrow=30, ncol=2)
+a=0
+
+for (i in data$Year[1]:data$Year[360]){
+  a=a+1
+  average_anual[a,1]=i
+  for (j in 1:nrow(data)){
+    if (data$Year[j] == i){
+      average_anual[a,2]=average_anual[a,2]+data$CO2[j]
+    }}}
+average_anual[,2]=average_anual[,2]/12
+
 library(plotly)
-p <- plot_ly(data, x = ~t, y = ~CO2, name = 'CO2', type = 'scatter', mode = 'lines') 
+p <- plot_ly(x = average_anual[,1], y = average_anual[,2], name = 'Anual CO2', type = 'scatter', mode = 'lines', col="deepskyblue4") 
+
+p <- p %>% layout(yaxis = list(title = "Year"),
+          xaxis = list(title = "Anual concentration (ppm)"))
+
 htmlwidgets::saveWidget(p,'plotly.html')
 ```
 
-<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+<style>
+  .p_iframe iframe {
+    width:75%;
+    height:576px;
+}
+</style>
 
-Averages by month
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+</div>
+
+
+Average concentration per month
 ========================================================
 
-```{r}
-average=matrix(data=0, nrow=12, ncol=2)
+```{r, echo=FALSE}
+average=rep(0,12)
 for (i in 1:12){
-  average[i,1]=i
   for (j in 1:nrow(data)){
     if (data$Month[j] == i){
-      average[i,2]=average[i,2]+data$CO2[j]
+      average[i]=average[i]+data$CO2[j]
     }}}
-average[,2]=average[,2]/nrow(data)*12
+average=average/nrow(data)*12
+
+average_dataframe=data.frame(month=c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+         'Aug', 'Sep', 'Oct', 'Nov', 'Dec'), average=average)
+
+average_dataframe$month = factor(average_dataframe$month, levels=c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+         'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
 
 library(plotly)
-p_mean <- plot_ly(average, x = ~average[,2], y = ~average[,1], name = 'Average CO2', type = 'scatter', mode = 'lines') 
-htmlwidgets::saveWidget(p_mean,'plotly.html')
+p_mean <- plot_ly(average_dataframe, x = ~month, y = ~average, name = 'Average CO2', type = 'scatter', mode = 'lines', line=list(color="deepskyblue4", width=3)) 
+
+
+p_mean <- p_mean %>% layout(yaxis = list(title = "C02 concentration (ppm)"),
+          xaxis = list(title = "Month", tickangle = 45))
+
+htmlwidgets::saveWidget(p_mean,'plotly_mean.html')
 ```
 
-
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly_mean.html"></iframe>
+</div>
 
 
 

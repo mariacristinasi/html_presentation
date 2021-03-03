@@ -1,0 +1,11 @@
+.reveal .state-background {
+  background: rgb(102, 204, 255)
+} 
+
+.reveal div {
+  color: white;
+}
+
+.reveal code {
+  color: #339966;
+}
