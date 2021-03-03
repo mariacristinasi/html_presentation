@@ -1,19 +1,32 @@
-CO2Hawaii dataset from Stat2Data R package
+CO2Hawaii dataset 
 ========================================================
-author: María Cristina Sánchez Iglesias
-date: March, 2021
+left: 40%
+class: title-slide
 autosize: true
 font-import: "https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
 font-family: 'Raleway'
 css: custom.css
 
+<br>
 
+ ![acronimo_nombrevertical](https://matematicas.us.es/sites/matematicas/files/inline-images/acronimo_nombrevertical.jpg)
+
+
+***
+
+<br>
+<br>
+
+María Cristina Sánchez Iglesias
+
+March, 2021
 
 Master in Statistics for Data Science - UC3M
 
 Course: Data Tidying and Reporting
 
-About CO2Hawaii dataset
+
+About CO2Hawaii dataset from Stat2Data R package
 ========================================================
 incremental:true
 
@@ -56,26 +69,33 @@ type: exclaim
 
 ![plot of chunk unnamed-chunk-2](index-figure/unnamed-chunk-2-1.png)
 
-<div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
-</div>
-
-
-
-Average concentration per year
-========================================================
-
-
 <style>
   .p_iframe iframe {
-    width:75%;
+    width:100%;
     height:576px;
 }
 </style>
 
 <div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
+</div>
+
+Concentration per year
+========================================================
+left:70%
+
+
+
+<div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
 </div>
+***
+Concentration have increased with years from 1988 to 2017. 
+
+The relationship between these variables seems to be linearly positive.
+
+The concentration read during the year 2017 is 659 ppm larger than the one read during the year 1988.
+
 
 
 Average concentration per month

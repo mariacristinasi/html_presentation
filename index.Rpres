@@ -1,19 +1,32 @@
-CO2Hawaii dataset from Stat2Data R package
+CO2Hawaii dataset 
 ========================================================
-author: María Cristina Sánchez Iglesias
-date: March, 2021
+left: 40%
+class: title-slide
 autosize: true
 font-import: "https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
 font-family: 'Raleway'
 css: custom.css
 
+<br>
 
+ ![acronimo_nombrevertical](https://matematicas.us.es/sites/matematicas/files/inline-images/acronimo_nombrevertical.jpg)
+
+
+***
+
+<br>
+<br>
+
+María Cristina Sánchez Iglesias
+
+March, 2021
 
 Master in Statistics for Data Science - UC3M
 
 Course: Data Tidying and Reporting
 
-About CO2Hawaii dataset
+
+About CO2Hawaii dataset from Stat2Data R package
 ========================================================
 incremental:true
 
@@ -49,23 +62,24 @@ library(ggthemes)
 
 ggplot(data, aes(t, CO2)) +
               geom_line(size=1.5, color="deepskyblue4") +
-              ggtitle("CO2 concentration") +
-              ylab("Time") +
+              xlab("Number of months since beginning") + ylab("Monthly CO2 concentration") +
               theme_stata()
 ```
+
+<style>
+  .p_iframe iframe {
+    width:100%;
+    height:576px;
+}
+</style>
 
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
 </div>
 
-```{r, include=FALSE}
-library(gganimate)
-serie=ts(data$CO2, freq=12)
-#plot(serie) ????????????? try to animate it with animate
-```
-
-Average concentration per year
+Concentration per year
 ========================================================
+left:70%
 ```{r, echo=FALSE}
 average_anual=matrix(data=0, nrow=30, ncol=2)
 a=0
@@ -77,27 +91,28 @@ for (i in data$Year[1]:data$Year[360]){
     if (data$Year[j] == i){
       average_anual[a,2]=average_anual[a,2]+data$CO2[j]
     }}}
-average_anual[,2]=average_anual[,2]/12
 
 library(plotly)
 p <- plot_ly(x = average_anual[,1], y = average_anual[,2], name = 'Anual CO2', type = 'scatter', mode = 'lines', col="deepskyblue4") 
 
 p <- p %>% layout(yaxis = list(title = "Year"),
-          xaxis = list(title = "Anual concentration (ppm)"))
+          xaxis = list(title = "CO2 concentration (ppm)"), 
+          title="Concentration of CO2 per year")
 
 htmlwidgets::saveWidget(p,'plotly.html')
 ```
 
-<style>
-  .p_iframe iframe {
-    width:75%;
-    height:576px;
-}
-</style>
 
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
 </div>
+***
+Concentration have increased with years from 1988 to 2017. 
+
+The relationship between these variables seems to be linearly positive.
+
+The concentration read during the year 2017 is 659 ppm larger than the one read during the year 1988.
+
 
 
 Average concentration per month
@@ -123,7 +138,8 @@ p_mean <- plot_ly(average_dataframe, x = ~month, y = ~average, name = 'Average C
 
 
 p_mean <- p_mean %>% layout(yaxis = list(title = "C02 concentration (ppm)"),
-          xaxis = list(title = "Month", tickangle = 45))
+          xaxis = list(title = "Month", tickangle = 45), 
+          title="Average concentration of CO2 per month")
 
 htmlwidgets::saveWidget(p_mean,'plotly_mean.html')
 ```
