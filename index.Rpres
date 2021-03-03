@@ -56,7 +56,7 @@ Concentration over time
 ========================================================
 type: exclaim
 
-```{r, echo=FALSE, fig.width=15}
+```{r, echo=FALSE}
 library(plotly)
 time_serie <- plot_ly(data, x = ~t, y = ~CO2, name = 'Monthly CO2', type = 'scatter', mode = 'lines', col="deepskyblue4") 
 
