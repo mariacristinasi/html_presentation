@@ -69,22 +69,18 @@ type: exclaim
 
 ![plot of chunk unnamed-chunk-2](index-figure/unnamed-chunk-2-1.png)
 
-<style>
-  .p_iframe iframe {
-    width:100%;
-    height:576px;
-}
-</style>
-
-<div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
-</div>
 
 Concentration per year
 ========================================================
 left:70%
 
 
+<style>
+  .p_iframe iframe {
+    width:100%;
+    height:576px;
+}
+</style>
 
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
