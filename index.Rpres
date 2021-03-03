@@ -57,15 +57,26 @@ Concentration over time
 type: exclaim
 
 ```{r, echo=FALSE, fig.width=15}
-library(ggplot2)
-library(ggthemes)
+library(plotly)
+time_serie <- plot_ly(data, x = ~t, y = ~CO2, name = 'Monthly CO2', type = 'scatter', mode = 'lines', col="deepskyblue4") 
 
-ggplot(data, aes(t, CO2)) +
-              geom_line(size=1.5, color="deepskyblue4") +
-              xlab("Number of months since beginning") + ylab("Monthly CO2 concentration") +
-              theme_stata()
+time_serie <- time_serie %>% layout(yaxis = list(title = "CO2 concentration (ppm)"),
+          xaxis = list(title = "Number of months since beginning"), 
+          title="Monthly concentration of CO2")
+
+htmlwidgets::saveWidget(time_serie,'time_serie.html')
 ```
 
+<style>
+  .p_iframe iframe {
+    width:100%;
+    height:600px;
+}
+</style>
+
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="time_serie.html"></iframe>
+</div>
 
 Concentration per year
 ========================================================
@@ -85,19 +96,12 @@ for (i in data$Year[1]:data$Year[360]){
 library(plotly)
 p <- plot_ly(x = average_anual[,1], y = average_anual[,2], name = 'Anual CO2', type = 'scatter', mode = 'lines', col="deepskyblue4") 
 
-p <- p %>% layout(yaxis = list(title = "Year"),
-          xaxis = list(title = "CO2 concentration (ppm)"), 
+p <- p %>% layout(yaxis = list(title = "CO2 concentration (ppm)"),
+          xaxis = list(title = "Year"), 
           title="Concentration of CO2 per year")
 
 htmlwidgets::saveWidget(p,'plotly.html')
 ```
-
-<style>
-  .p_iframe iframe {
-    width:100%;
-    height:576px;
-}
-</style>
 
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
